@@ -1,8 +1,5 @@
 package com.wildcodeschool.wildandwizard.controller;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,18 +31,22 @@ public class CourseController {
 		// add course to the model
 		out.addAttribute("course", course);
 		
-	      // call the method getWizards in Course
-        List<Wizard> wizards = new ArrayList<>();
-        Method method = getMethod(course, "getWizards",
-                new Class[]{});
-        if (method != null) {
-            try {
-                wizards = (List<Wizard>) method.invoke(course);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-        // add the participant wizards to the model
+        // call the method getWizards in Course
+		List<Wizard> wizards = course.getWizards();
+
+//		method call via reflection removed
+//        List<Wizard> wizards = new ArrayList<>();
+//        Method method = getMethod(course, "getWizards",
+//                new Class[]{});
+//        if (method != null) {
+//            try {
+//                wizards = (List<Wizard>) method.invoke(course);
+//            } catch (IllegalAccessException | InvocationTargetException e) {
+//                e.printStackTrace();
+//            }
+//        }
+      
+        // add the participating wizards to the model
         out.addAttribute("courseWizards", wizards);
 		
 		return "course";
@@ -55,14 +56,14 @@ public class CourseController {
 		
 	}
 	
-    public Method getMethod(Object obj, String methodName, Class[] args) {
-        Method method;
-        try {
-            method = obj.getClass().getDeclaredMethod(methodName, args);
-            return method;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public Method getMethod(Object obj, String methodName, Class[] args) {
+//        Method method;
+//        try {
+//            method = obj.getClass().getDeclaredMethod(methodName, args);
+//            return method;
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 }
