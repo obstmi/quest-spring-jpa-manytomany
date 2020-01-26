@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wizards in course</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<h3>Wizards in course:</h3>
+<h1 th:text="${course.name}"></h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wizard : ${courseWizards}">
+        <td th:text="${wizard.id}">id</td>
+        <td th:text="${wizard.firstName}">firstName</td>
+        <td th:text="${wizard.lastName}">lastName</td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a href="/">Return to students list</a>
+</body>
+</html>

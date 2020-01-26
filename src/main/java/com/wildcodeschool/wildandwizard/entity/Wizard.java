@@ -4,7 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Wizard {
@@ -18,11 +24,33 @@ public class Wizard {
     private String birthPlace;
     private String biography;
     private boolean muggle;
+    
+    
+    @ManyToMany
+    @JoinTable(name = "wizard_course", 
+    	joinColumns = @JoinColumn(name = "wizard_id"), 
+    	inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses = new ArrayList<Course>();
 
     public Wizard() {
     }
 
-    public Long getId() {
+    /**
+	 * @return the courses
+	 */
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	/**
+	 * Not necessary for this example, since the list of relations is only read from database
+	 * @param courses the courses to set
+	 */
+//	public void setCourses(List<Course> courses) {
+//		this.courses = courses;
+//	}
+
+	public Long getId() {
         return id;
     }
 
